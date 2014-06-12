@@ -13,7 +13,7 @@ niter=10 #liczba iteracji
 
 #tablica=[[0 for x in range (height+1)] for x in range (width+1)]
 #tablica=[[0 for x in range (255)] for x in range (255)]
-a = [[]*255 for x in xrange(255)]
+tablica=[[0 for x in range (height)] for x in range (width)]
 
 unitx=float()
 unity=float()
@@ -39,8 +39,8 @@ IMn=int()#nowa część urojona
 REp=int()#część rzeczywista punktu
 IMp=int()#część urojona punktu
 
-for i in range(height): #przesuwamy sie w pionie
-	for j in range(width): #przesuwamy sie w poziomie
+for i in range(0,height): #przesuwamy sie w pionie
+	for j in range(0,width): #przesuwamy sie w poziomie
 		REs=0	
 		IMs=0	
 		REn=0	
@@ -53,7 +53,7 @@ for i in range(height): #przesuwamy sie w pionie
 		#print "unitx"+str(unitx)+" unity"+str(unity)
 
 		n2=0
-		for n in range(niter): #wykonujemy kolejne iteracje
+		for n in range(0,niter): #wykonujemy kolejne iteracje
 			#kwadracimy liczbę zespoloną
 			REn=REs**2+IMs**2
 			IMn=2*REs*IMs
