@@ -4,23 +4,15 @@ import time
 import png
 #zmienne rysowania
 
-przesx=int()
-przesy=int()
-width=int() #szerokość w pikselach
-height=int() #wysokość w pikselach
-
-x=int(raw_input("Podaj wysokosc w ukladzie wsp:"))
-y=int(raw_input("Podaj szerokosc w ukladzie wsp:"))
-width=int(raw_input("Podaj rozdzielczosc pionowa:"))
-height=int(raw_input("Podaj rozdzielczosc pozioma:"))
-przesx=float(raw_input("Podaj przesuniecie pionowe:"))
-przesy=float(raw_input("Podaj przesuniecie poziome:"))
-
-x=3 #długość układu współrzędnych w osi y
-y=3#długość układu współrzędnych w osi x
+width=512 #szerokość w pikselach
+height=512 #wysokość w pikselach
+x=5 #długość układu współrzędnych w osi y
+y=5#długość układu współrzędnych w osi x
 niter=100 #liczba iteracji 
 
 
+#tablica=[[0 for x in range (height+1)] for x in range (width+1)]
+#tablica=[[0 for x in range (255)] for x in range (255)]
 tablica=[[0 for z in range (height)] for z in range (width)]
 
 unitx=float()
@@ -41,8 +33,8 @@ REp=int()#część rzeczywista punktu
 IMp=int()#część urojona punktu
 
 
-REps=-(x/2)-przesx#tu moze być przesuwanie
-IMps=-(y/2)-przesy
+REps=-(x/2)#tu moze być przesuwanie
+IMps=-(y/2)
 IMp=IMps
 
 
@@ -62,12 +54,10 @@ for i in range(0,height): #przesuwamy sie w pionie
 		#print "unitx"+str(unitx)+" unity"+str(unity)
 
 		n2=-1
-		REs=REp
-		IMs=IMp
 		for n in range(0,niter): #wykonujemy kolejne iteracje
 			#kwadracimy liczbę zespoloną
-			REn=REs**2-IMs**2
-			IMn=2*(REs*IMs)
+			REn=REs**2+IMs**2
+			IMn=2*REs*IMs
 			REn+=REp
 			IMn+=IMp
 			REs=REn
@@ -76,15 +66,18 @@ for i in range(0,height): #przesuwamy sie w pionie
 			#sprawdzamy czy moduł mniejszy od 2 (4 zeby nie pierwiastkować niepotrzebnie)
 			
 			##--DBG--##
-			#print "RE:"+str(REn)+" IM:"+str(IMn)+" MOD:"+str(REn**2+IMn**2)
-			#print str(n)
+			print "RE:"+str(REn)+" IM:"+str(IMn)+" MOD:"+str(REn**2+IMn**2)
+			print str(n)
 
-			if(REn**2+IMn**2>=4):
+			if((REn**2)+(IMn**2)>4):
 				break;
-		tablica[j][i]=n2*(255/niter)
+		if((REn**2)+(IMn**2)>4):
+			tablica[i][j]=0
+		else:
+			tablica[i][j]=n2*(255/niter)
 		##--DBG--##
 		#print "i"+str(i)+" j"+str(j)		
-#print (tablica)
+print (tablica)
 f=open("fraktal.png","wb")
 w=png.Writer(width,height,greyscale=True)
 w.write(f,tablica)
